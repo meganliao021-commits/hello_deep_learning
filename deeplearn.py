@@ -8,7 +8,7 @@ import streamlit as st
 from transformers import pipeline
 
 # Load the text classification model pipeline
-classifier = pipeline("text-classification",model='isom5240ust/bert-base-uncased-emotion')
+classifier = pipeline("text-classification",model='google/vit-base-patch16-224-in21k')
 
 # Streamlit application title
 st.title("Text Classification for you")
