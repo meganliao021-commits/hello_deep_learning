@@ -2,7 +2,7 @@ import streamlit as st
 
 st.write("ISOM5240")
 st.write("hello megan")
-
+st.write("What do you want to do?")
 
 import streamlit as st
 from transformers import pipeline
