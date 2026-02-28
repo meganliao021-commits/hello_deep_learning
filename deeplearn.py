@@ -8,7 +8,7 @@ import streamlit as st
 from transformers import pipeline
 
 # Load the text classification model pipeline
-classifier = pipeline("text-classification",model='google/vit-base-patch16-224-in21k')
+classifier = pipeline("text-classification",model='j-hartmann/emotion-english-distilroberta-base')
 
 
 # Streamlit application title
@@ -135,7 +135,7 @@ st.title("Title: Age Classification using ViT")
 # Load the age classification pipeline
 # The code below should be placed in the main part of the program
 age_classifier = pipeline("image-classification",
-                          model="nateraw/vit-age-classifier")
+                          model="google/vit-base-patch16-224-in21k")
 
 image_name = "middleagedWoman.jpg"
 image_name = Image.open(image_name).convert("RGB")
