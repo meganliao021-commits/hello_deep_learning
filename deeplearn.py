@@ -135,7 +135,7 @@ st.title("Title: Age Classification using ViT")
 # Load the age classification pipeline
 # The code below should be placed in the main part of the program
 age_classifier = pipeline("image-classification",
-                          model="google/vit-base-patch16-224-in21k")
+                          model="dini-r-a/image_age_classification")
 
 image_name = "middleagedWoman.jpg"
 image_name = Image.open(image_name).convert("RGB")
