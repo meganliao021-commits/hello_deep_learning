@@ -178,5 +178,14 @@ def main():
         st.title("Title: Age Classification using ViT")
     
         age_predictions = age_classifier("middleagedWoman.jpg")
+
+
+def output():
+        st.write(age_predictions)
+        age_predictions = sorted(age_predictions, key=lambda x: x['score'], reverse=True)
         
+        # Display results
+        st.write("Predicted Age Range:")
+        st.write(f"Age range: {age_predictions[0]['label']}")
+        st.write(demo)
     
