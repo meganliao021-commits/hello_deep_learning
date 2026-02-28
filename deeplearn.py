@@ -129,22 +129,54 @@ from transformers import pipeline
 from PIL import Image
 import streamlit as st
 
-# Streamlit UI
-st.title("Title: Age Classification using ViT")
+#def function
+def main():
 
-# Load the age classification pipeline
-# The code below should be placed in the main part of the program
-age_classifier = pipeline("image-classification",
-                          model="dini-r-a/image_age_classification")
+        
+        # Streamlit UI
+        st.title("Title: Age Classification using ViT")
+        
+        # Load the age classification pipeline
+        # The code below should be placed in the main part of the program
+        age_classifier = pipeline("image-classification",
+                                  model="dini-r-a/image_age_classification")
+        
+        image_name = "middleagedWoman.jpg"
+        image_name = Image.open(image_name).convert("RGB")
+        
+        # Classify age
+        age_predictions = age_classifier(image_name)
+        st.write(age_predictions)
+        age_predictions = sorted(age_predictions, key=lambda x: x['score'], reverse=True)
+        
+        # Display results
+        st.write("Predicted Age Range:")
+        st.write(f"Age range: {age_predictions[0]['label']}")
 
-image_name = "middleagedWoman.jpg"
-image_name = Image.open(image_name).convert("RGB")
 
-# Classify age
-age_predictions = age_classifier(image_name)
-st.write(age_predictions)
-age_predictions = sorted(age_predictions, key=lambda x: x['score'], reverse=True)
 
-# Display results
-st.write("Predicted Age Range:")
-st.write(f"Age range: {age_predictions[0]['label']}")
+if __name__ == "__main__":
+    main()
+
+
+
+def ageclassifier(imagefilename):
+    # The code below should be placed in the main part of the program
+        age_classifier = pipeline("image-classification",
+                                  model="dini-r-a/image_age_classification")
+        
+        image_name = imagefilename
+        image_name = Image.open(image_name).convert("RGB")
+        
+        # Classify age
+        age_predictions = age_classifier(image_name)
+return age_predictions
+
+
+def main():
+      # Streamlit UI
+        st.title("Title: Age Classification using ViT")
+    
+        age_predictions = age_classifier("middleagedWoman.jpg")
+        
+    
