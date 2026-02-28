@@ -170,7 +170,7 @@ def ageclassifier(imagefilename):
         
         # Classify age
         age_predictions = age_classifier(image_name)
-return age_predictions
+        return age_predictions
 
 
 def main():
