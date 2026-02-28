@@ -47,7 +47,7 @@ if uploaded_image is not None:
     with st.spinner("Loading image..."):
         time.sleep(1)  # Simulate a delay
         image = Image.open(uploaded_image)
-        st.image(image, caption="Uploaded Image", use_column_width=True)
+        st.image(image, caption="Uploaded Image", use_column_width=True) #show the image
 
 # Button interaction
 if st.button("Click Me"):
