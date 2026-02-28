@@ -10,6 +10,7 @@ from transformers import pipeline
 # Load the text classification model pipeline
 classifier = pipeline("text-classification",model='google/vit-base-patch16-224-in21k')
 
+
 # Streamlit application title
 st.title("Text Classification for you")
 st.write("Classification for 6 emotions: sadness, joy, love, anger, fear, surprise")
