@@ -1,6 +1,7 @@
 
 from transformers import pipeline
 from PIL import Image
+import streamlit as st
 
 # Streamlit UI
 print("Title: Age Classification using ViT")
@@ -10,7 +11,7 @@ print("Title: Age Classification using ViT")
 age_classifier = pipeline("image-classification",
                           model="nateraw/vit-age-classifier")
 
-image_name = "middleagedMan.jpg"
+image_name = "middleagedWoman.jpg"
 image_name = Image.open(image_name).convert("RGB")
 
 # Classify age
