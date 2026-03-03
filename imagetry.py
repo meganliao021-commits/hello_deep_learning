@@ -30,7 +30,7 @@ def text2story(scenario):
     Model: aspis/gpt2-genre-story-generation.
     """
     # Initialize text generation pipeline
-    story_gen = pipeline("text-generation", model="aspis/gpt2-genre-story-generation")
+    story_gen = pipeline("text-generation", model="Qwen/Qwen2.5-1.5B-Instruct")
     
     # Crafting a prompt to guide GPT-2 for children's storytelling
     # Setting the genre helps maintain the tone for kids
