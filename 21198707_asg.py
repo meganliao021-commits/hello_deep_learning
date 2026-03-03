@@ -9,15 +9,6 @@ from transformers import pipeline
 import torch
 import os
 from PIL import Image
-
-@st.cache_resource
-def load_models():
-    # 缓存模型以避免重复加载导致 Streamlit 崩溃
-    captioner = pipeline("image-to-text", model="Salesforce/blip-image-captioning-base", device=-1)
-    # 建议使用极其轻量的 gpt2 基础版以确保不超内存
-    story_gen = pipeline("text-generation", model="gpt2", device=-1)
-    tts_pipe = pipeline("text-to-audio", model="facebook/mms-tts-eng", device=-1)
-    return captioner, story_gen, tts_pipe
     
 # --- 2. Function part ---
 
@@ -40,7 +31,7 @@ def text2story(scenario):
     Model: aspis/gpt2-genre-story-generation.
     """
     # Initialize text generation pipeline
-    story_gen = pipeline("text-generation", model="gpt2")
+    story_gen = pipeline("text-generation", model="aspis/gpt2-genre-story-generation")
     
     # Crafting a prompt to guide GPT-2 for children's storytelling
     # Setting the genre helps maintain the tone for kids
