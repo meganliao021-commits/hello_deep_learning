@@ -30,7 +30,7 @@ def text2story(scenario):
     Model: aspis/gpt2-genre-story-generation.
     """
     # Initialize text generation pipeline
-    story_gen = pipeline("text-generation", model="facebook/opt-350m")
+    story_gen = pipeline("text-generation", model="openai-community/gpt2-medium")
     
     # Crafting a prompt to guide GPT-2 for children's storytelling
     # Setting the genre helps maintain the tone for kids
