@@ -1,11 +1,4 @@
-@st.cache_resource
-def load_models():
-    # 缓存模型以避免重复加载导致 Streamlit 崩溃
-    captioner = pipeline("image-to-text", model="Salesforce/blip-image-captioning-base", device=-1)
-    # 建议使用极其轻量的 gpt2 基础版以确保不超内存
-    story_gen = pipeline("text-generation", model="gpt2", device=-1)
-    tts_pipe = pipeline("text-to-audio", model="facebook/mms-tts-eng", device=-1)
-    return captioner, story_gen, tts_pipe
+
     
 # Program title: Storytelling Application using Hugging Face Pipelines
 # Student ID: <your_student_id>
@@ -17,6 +10,15 @@ import torch
 import os
 from PIL import Image
 
+@st.cache_resource
+def load_models():
+    # 缓存模型以避免重复加载导致 Streamlit 崩溃
+    captioner = pipeline("image-to-text", model="Salesforce/blip-image-captioning-base", device=-1)
+    # 建议使用极其轻量的 gpt2 基础版以确保不超内存
+    story_gen = pipeline("text-generation", model="gpt2", device=-1)
+    tts_pipe = pipeline("text-to-audio", model="facebook/mms-tts-eng", device=-1)
+    return captioner, story_gen, tts_pipe
+    
 # --- 2. Function part ---
 
 def img2text(img_filename):
