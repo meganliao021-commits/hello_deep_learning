@@ -20,10 +20,24 @@ def img2text(img_filename):
 def text2story(scenario):
     story_gen = pipeline("text-generation", model="roneneldan/TinyStories-1M")
     prompt = f"Genre: Children's Story. Prompt: {scenario}. Once upon a time,"
-    output = story_gen(prompt, max_new_tokens=100, do_sample=True, temperature=0.8, top_k=50)
+    
+    # 1. 稍微多给一点 token (比如 150) 确保它能写出结尾
+    output = story_gen(prompt, max_new_tokens=150, do_sample=True, temperature=0.8)
+    full_text = output[0]['generated_text']
+    
+    # 2. 提取故事正文
+    story_body = "Once upon a time," + full_text.split("Once upon a time,")[-1]
+    
+    # 3. --- 核心修复：只保留到最后一个句号 ---
+    # 寻找最后一个句号的位置
+    last_period = story_body.rfind('.')
+    if last_period != -1:
+        # 只截取到最后一个句号，丢弃后面没写完的断句
+        final_story = story_body[:last_period + 1]
+    else:
+        final_story = story_body
 
-    story_text = output[0]['generated_text']
-    return story_text
+    return final_story
 
 def text2audio(story_text):
     tts_pipe = pipeline("text-to-audio", model="facebook/mms-tts-eng")
