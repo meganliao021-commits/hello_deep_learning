@@ -1,7 +1,7 @@
 
     
 # Program title: Storytelling Application using Hugging Face Pipelines
-# Student ID: <your_student_id>
+# Student ID: 21198707 LIAO WEIXI
 
 # --- 1. Import part ---
 import streamlit as st
@@ -13,62 +13,38 @@ from PIL import Image
 # --- 2. Function part ---
 
 def img2text(img_filename):
-    """
-    Requirement 20-22: Extract a caption using the recommended BLIP model.
-    Model: Salesforce/blip-image-captioning-base.
-    """
-    # Initialize image-to-text pipeline
     captioner = pipeline("image-to-text", model="Salesforce/blip-image-captioning-base")
-    
-    # Generate descriptive text from the image
     result = captioner(img_filename)
     return result[0]['generated_text']
 
 def text2story(scenario):
-    """
-    Requirement 15-16: Generate a narrative of 50-100 words based on the image caption.
-    Requirement 8: Ensure content is appropriate for 3-10 year-old kids.
-    Model: aspis/gpt2-genre-story-generation.
-    """
-    # Initialize text generation pipeline
     story_gen = pipeline("text-generation", model="roneneldan/TinyStories-1M")
-    
-    # Crafting a prompt to guide GPT-2 for children's storytelling
-    # Setting the genre helps maintain the tone for kids
     prompt = f"Genre: Children's Story. Prompt: {scenario}. Once upon a time,"
-    
-    # max_new_tokens is tuned to stay within the 50-100 words requirement
     output = story_gen(prompt, max_new_tokens=100, do_sample=True, temperature=0.8, top_k=50)
+
+    if "Once upon a time," in full_text:
+        story_body = full_text.split("Once upon a time,")[-1]
+        final_story = "Once upon a time," + story_body
+    else:
+        final_story = full_text
     
-    story_text = output[0]['generated_text']
-    return story_text
+    return final_story.strip()
 
 def text2audio(story_text):
-    """
-    Requirement 17-18 & 25-27: Convert the generated story into audio format.
-    Model: facebook/mms-tts-eng (High efficiency and stability).
-    """
-    # Initialize text-to-audio pipeline
     tts_pipe = pipeline("text-to-audio", model="facebook/mms-tts-eng")
-    
-    # Generate audio data
     audio_data = tts_pipe(story_text)
     return audio_data
 
 # --- 3. Main part ---
 
 def main():
-    # Application setup following Assessment Criteria for User Experience
     st.set_page_config(page_title="Magic Storytelling App", page_icon="🎨")
     st.header("🎨 Magic Storytelling App for Kids")
     st.write("Welcome! Upload an image and let's create a wonderful story together.")
 
-    # Requirement 12-14: Allow users to specify image filename in current working directory
-    # For a better UI, we use file_uploader and save it to the current directory
     uploaded_file = st.file_uploader("Choose an image file...", type=["jpg", "png", "jpeg"])
 
     if uploaded_file is not None:
-        # Save file to current working directory as required by the assignment
         with open(uploaded_file.name, "wb") as f:
             f.write(uploaded_file.getbuffer())
         
