@@ -22,13 +22,8 @@ def text2story(scenario):
     prompt = f"Genre: Children's Story. Prompt: {scenario}. Once upon a time,"
     output = story_gen(prompt, max_new_tokens=100, do_sample=True, temperature=0.8, top_k=50)
 
-    if "Once upon a time," in full_text:
-        story_body = full_text.split("Once upon a time,")[-1]
-        final_story = "Once upon a time," + story_body
-    else:
-        final_story = full_text
-    
-    return final_story.strip()
+    story_text = output[0]['generated_text']
+    return story_text
 
 def text2audio(story_text):
     tts_pipe = pipeline("text-to-audio", model="facebook/mms-tts-eng")
