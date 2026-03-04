@@ -21,18 +21,12 @@ def text2story(scenario):
     story_gen = pipeline("text-generation", model="roneneldan/TinyStories-1M")
     prompt = f"A simple kid story: {scenario}. Once upon a time,"
     
-    # 1. 稍微多给一点 token (比如 150) 确保它能写出结尾
-    output = story_gen(prompt, max_new_tokens=110, do_sample=True, temperature=0.6)
+    output = story_gen(prompt, min_new_tokens=50, max_new_tokens=110, do_sample=True, temperature=0.6)
     full_text = output[0]['generated_text']
-    
-    # 2. 提取故事正文
     story_body = "Once upon a time," + full_text.split("Once upon a time,")[-1]
     
-    # 3. --- 核心修复：只保留到最后一个句号 ---
-    # 寻找最后一个句号的位置
     last_period = story_body.rfind('.')
     if last_period != -1:
-        # 只截取到最后一个句号，丢弃后面没写完的断句
         final_story = story_body[:last_period + 1]
     else:
         final_story = story_body
