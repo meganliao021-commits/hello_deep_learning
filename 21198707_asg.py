@@ -22,7 +22,7 @@ def text2story(scenario):
     prompt = f"Genre: Children's Story. Prompt: {scenario}. Once upon a time,"
     
     # 1. 稍微多给一点 token (比如 150) 确保它能写出结尾
-    output = story_gen(prompt, max_new_tokens=150, do_sample=True, temperature=0.8)
+    output = story_gen(prompt, max_new_tokens=100, do_sample=True, temperature=0.8)
     full_text = output[0]['generated_text']
     
     # 2. 提取故事正文
