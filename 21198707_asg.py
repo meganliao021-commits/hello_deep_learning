@@ -25,11 +25,12 @@ def text2story(scenario):
     story_text = output[0]['generated_text']
     return story_text
 
-def text2audio(story_text):
-    tts_pipe = pipeline("text-to-audio", model="facebook/fastspeech2-en-ljspeech")
-    audio_data = tts_pipe(story_text)
-    return audio_data
 
+
+def text2audio(story_text):
+    tts_pipe = pipeline("text-to-speech", model="facebook/fastspeech2-en-ljspeech")
+    audio_result = tts_pipe(story_text)
+    return audio_result
 # --- 3. Main part ---
 
 def main():
