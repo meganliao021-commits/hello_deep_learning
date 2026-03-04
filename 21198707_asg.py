@@ -26,7 +26,7 @@ def text2story(scenario):
     return story_text
 
 def text2audio(story_text):
-    tts_pipe = pipeline("text-to-audio", model="facebook/mms-tts-eng")
+    tts_pipe = pipeline("text-to-audio", model="facebook/fastspeech2-en-ljspeech")
     audio_data = tts_pipe(story_text)
     return audio_data
 
