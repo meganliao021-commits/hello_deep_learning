@@ -21,7 +21,7 @@ def text2story(scenario):
     story_gen = pipeline("text-generation", model="roneneldan/TinyStories-1M")
     prompt = f"A simple kid story: {scenario}. Once upon a time,"
     
-    output = story_gen(prompt, min_new_tokens=50, max_new_tokens=110, do_sample=True, temperature=0.6)
+    output = story_gen(prompt, max_new_tokens=120, do_sample=True, temperature=0.6)
     full_text = output[0]['generated_text']
     story_body = "Once upon a time," + full_text.split("Once upon a time,")[-1]
     
