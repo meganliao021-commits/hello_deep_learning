@@ -7,6 +7,7 @@ from transformers import AutoTokenizer
 import torch
 import numpy as np
 
+st.head("testing app")
 # Testing with the saved model
 model2 = AutoModelForSequenceClassification.from_pretrained("CustomModel_yelp",
                                                             num_labels=5)
@@ -27,7 +28,7 @@ predictions = predictions.cpu().detach().numpy()
 # Get the index of the largest output value
 max_index = np.argmax(predictions)
 
-st.write(f"The label is {label} and the predicted label is {max_index}")
+st.write("The label is {label} and the predicted label is {max_index}")
 
 def main():
     sentiment_pipeline = pipeline(model="distilbert/distilbert-base-uncased-finetuned-sst-2-english")
