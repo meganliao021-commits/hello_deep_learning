@@ -1,4 +1,4 @@
 transformers<5.0.0
 torch
-streamlit
+streamlit==1.37.0
 Pillow
